@@ -365,7 +365,7 @@ export default {};
   }
   .position {
     position: sticky;
-    top: 0;
+    top: 0.5rem;
   }
   .title-box {
     display: flex;

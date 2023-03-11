@@ -6,18 +6,22 @@
     <div class="main-section">
       <mainSection></mainSection>
     </div>
-    <div class="right-sidebar"></div>
+    <div class="right-sidebar">
+      <rightsidebar></rightsidebar>
+    </div>
   </div>
 </template>
 
 <script>
 import leftsidebar from "../components/leftsidebar.vue";
 import mainSection from "../components/main-section.vue";
+import rightsidebar from "../components/rightsidebar.vue";
 export default {
   name: "IndexPage",
   components: {
     leftsidebar,
     mainSection,
+    rightsidebar,
   },
 };
 </script>
@@ -40,6 +44,7 @@ export default {
 }
 .container-box {
   display: grid;
-  grid-template-columns: 300px auto 350px;
+  grid-template-columns: 270px auto 300px;
+  gap: 1rem;
 }
 </style>
