@@ -1,85 +1,215 @@
 <template>
-  <div>
-    <div class="css-1dbjc4n r-1adg3ll r-1ny4l3l">
-      <div class="css-1dbjc4n">
-        <div
-          aria-labelledby="id__6aajkqslomw"
-          tabindex="0"
-          class="css-1dbjc4n r-1loqt21 r-6koalj r-1ny4l3l r-ymttw5 r-1f1sjgu r-o7ynqc r-6416eg"
-          data-testid="trend"
-          role="link"
-        >
-          <div class="css-1dbjc4n r-16y2uox r-bnwqim" id="id__6aajkqslomw">
-            <div class="css-1dbjc4n r-1d09ksm r-18u37iz r-1wbh5a2">
-              <div
-                dir="ltr"
-                class="css-901oao r-14j79pv r-37j5jr r-n6v787 r-16dba41 r-1cwl3u0 r-bcqeeo r-qvutc0"
-              >
-                <span class="css-901oao css-16my406 r-poiln3 r-bcqeeo r-qvutc0"
-                  >Technology · Trending</span
-                >
+  <div class="">
+    <div class="dark-bg">
+      <div class="signup-section">
+        <h2>Create your account</h2>
+        <form>
+          <label for="name">Name:</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            required
+            placeholder="Name"
+          />
+          <label for="email">Email:</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Email"
+            required
+          />
+          <input
+            type="email"
+            id="password"
+            name=""
+            required
+            placeholder="Password"
+          />
+          <input
+            type="email"
+            id="password"
+            name=""
+            required
+            placeholder="Confirm password"
+          />
+          <div class="birth-date">
+            <h3>Date of birth</h3>
+            <p>
+              This will not be shown publicly. Confirm your own age, even if
+              this account is for a business, a pet, or something else.
+            </p>
+            <div class="flex">
+              <div class="months">
+                <label for="month">Month:</label>
+                <select id="month" name="month">
+                  <option value="jan" v-for="month in months" :key="month">
+                    {{ month }}
+                  </option>
+                </select>
               </div>
-            </div>
-            <div
-              dir="ltr"
-              class="css-901oao r-18jsvk2 r-37j5jr r-a023e6 r-b88u0q r-rjixqe r-1bymd8e r-bcqeeo r-qvutc0"
-            >
-              <span class="css-901oao css-16my406 r-poiln3 r-bcqeeo r-qvutc0"
-                >GPT-4</span
-              >
-            </div>
-            <div
-              dir="ltr"
-              class="css-901oao r-14j79pv r-37j5jr r-n6v787 r-16dba41 r-1cwl3u0 r-14gqq1x r-bcqeeo r-qvutc0"
-            >
-              <span class="css-901oao css-16my406 r-poiln3 r-bcqeeo r-qvutc0"
-                >11K Tweets</span
-              >
-            </div>
-            <div class="css-1dbjc4n r-u8s1d r-zchlnj r-1jy2w8o">
-              <div class="css-1dbjc4n r-18u37iz r-1h0z5md r-1joea0r">
-                <div
-                  aria-expanded="false"
-                  aria-haspopup="menu"
-                  aria-label="More"
-                  role="button"
-                  tabindex="0"
-                  class="css-18t94o4 css-1dbjc4n r-1777fci r-bt1l66 r-1ny4l3l r-bztko3 r-lrvibr"
-                  data-testid="caret"
-                >
-                  <div
-                    dir="ltr"
-                    class="css-901oao r-1awozwy r-14j79pv r-6koalj r-37j5jr r-a023e6 r-16dba41 r-1h0z5md r-rjixqe r-bcqeeo r-o7ynqc r-clp7b1 r-3s2u2q r-qvutc0"
-                  >
-                    <div class="css-1dbjc4n r-xoduu5">
-                      <div
-                        class="css-1dbjc4n r-1niwhzg r-sdzlij r-1p0dtai r-xoduu5 r-1d2f490 r-xf4iuw r-1ny4l3l r-u8s1d r-zchlnj r-ipm5af r-o7ynqc r-6416eg"
-                      ></div>
-                      <svg
-                        viewBox="0 0 24 24"
-                        aria-hidden="true"
-                        class="r-4qtqp9 r-yyyyoo r-1xvli5t r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-1hdv0qi"
-                      >
-                        <g>
-                          <path
-                            d="M3 12c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2zm9 2c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm7 0c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"
-                          ></path>
-                        </g>
-                      </svg>
-                    </div>
-                  </div>
-                </div>
+              <div class="days">
+                <label for="day">Day:</label>
+                <select id="day" name="day">
+                  <option v-for="day in days" :key="day" value="1">
+                    {{ day }}
+                  </option>
+                </select>
+              </div>
+              <div class="years">
+                <label for="year">Year:</label>
+                <select id="year" name="year">
+                  <option value="2023" v-for="year in years" :key="year">
+                    {{ year }}
+                  </option>
+                </select>
               </div>
             </div>
           </div>
-        </div>
+
+          <input type="submit" value="Sign Up" />
+          <p class="resisterd">
+            Already resistered? <a href="/signin">Login</a>
+          </p>
+        </form>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      months: [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ],
+      years: [],
+      days: [],
+    };
+  },
+  mounted() {
+    this.days = Array.from({ length: 30 }, (_, i) => i + 1);
+
+    this.years = Array.from({ length: 54 }, (_, i) => 1970 + i);
+  },
+};
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.dark-bg {
+  width: 100%;
+  height: 100vh;
+  background-color: rgb(131, 127, 127);
+}
+.signup-section {
+  width: 550px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  padding: 40px;
+  border-radius: 10px;
+  .resisterd {
+    font-family: TwitterChirp, -apple-system, BlinkMacSystemFont, "Segoe UI",
+      Roboto, Helvetica, Arial, sans-serif;
+    text-align: center;
+    padding-top: 0.5rem;
+    a {
+      color: #27ae60;
+    }
+  }
+  .birth-date {
+    h3 {
+      font-size: 15px;
+      font-weight: 600;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    p {
+      font-weight: 400;
+      font-size: 0.8rem;
+      padding: 0.5rem 0;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+  }
+  .flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    font-family: TwitterChirp, -apple-system, BlinkMacSystemFont, "Segoe UI",
+      Roboto, Helvetica, Arial, sans-serif;
+
+    .months {
+      width: 50%;
+    }
+    .days {
+      width: 20%;
+    }
+    .years {
+      width: 30%;
+    }
+  }
+  h2 {
+    margin-top: 0;
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    font-family: TwitterChirp, -apple-system, BlinkMacSystemFont, "Segoe UI",
+      Roboto, Helvetica, Arial, sans-serif;
+  }
+
+  form {
+    text-align: left;
+  }
+
+  form label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 18px;
+    font-weight: 500;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  form input[type="text"],
+  form input[type="email"],
+  form select {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ccc;
+    outline-color: #1d9bf0;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    font-size: 16px;
+  }
+
+  form input[type="submit"] {
+    background-color: #2ecc71;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    width: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+    cursor: pointer;
+  }
+
+  form input[type="submit"]:hover {
+    background-color: #27ae60;
+  }
+}
+</style>
