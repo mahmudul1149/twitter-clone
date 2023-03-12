@@ -3,7 +3,7 @@
     <div class="position">
       <div class="input-box">
         <input type="text" name="" id="" placeholder="Search Twitter" />
-        <img src="../assets/images/314807_search_icon.png" alt="" />
+        <img src="~/assets/images/314807_search_icon.png" alt="" />
       </div>
     </div>
     <div class="right-sidebar">
@@ -122,6 +122,7 @@ export default {
 <style lang="scss" scoped>
 .position {
   position: sticky;
+  z-index: 9999;
   top: 0.5rem;
 }
 .input-box {

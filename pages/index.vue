@@ -3,12 +3,13 @@
     <div class="dark-bg">
       <div class="signup-section">
         <h2>Create your account</h2>
-        <form>
+        <form @submit.prevent="registerUser">
           <label for="name">Name:</label>
           <input
             type="text"
             id="name"
             name="name"
+            v-model="user.username"
             required
             placeholder="Name"
           />
@@ -17,18 +18,20 @@
             type="email"
             id="email"
             name="email"
+            v-model="user.email"
             placeholder="Email"
             required
           />
           <input
-            type="email"
+            type="password"
             id="password"
             name=""
+            v-model="user.password"
             required
             placeholder="Password"
           />
           <input
-            type="email"
+            type="password"
             id="password"
             name=""
             required
@@ -79,9 +82,15 @@
 </template>
 
 <script>
+import { register } from "../plugins/firebase";
 export default {
   data() {
     return {
+      user: {
+        username: " ",
+        email: "",
+        password: "",
+      },
       months: [
         "January",
         "February",
@@ -104,6 +113,25 @@ export default {
     this.days = Array.from({ length: 30 }, (_, i) => i + 1);
 
     this.years = Array.from({ length: 54 }, (_, i) => 1970 + i);
+  },
+  methods: {
+    registerUser() {
+      // this.isLoading = true;
+      register(this.user.username, this.user.email, this.user.password)
+        .then((user) => {
+          // commit the mutation
+          this.$store.commit("setUser", user);
+        })
+        .then(() => {
+          // Go to the home page after loggin in.
+          this.$router.push("/home");
+        })
+        .catch((err) => {
+          alert("error");
+          this.$router.push("/");
+          // this.isLoading = false;
+        });
+    },
   },
 };
 </script>
@@ -186,6 +214,7 @@ export default {
 
   form input[type="text"],
   form input[type="email"],
+  form input[type="password"],
   form select {
     width: 100%;
     padding: 15px;

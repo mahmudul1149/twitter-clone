@@ -196,14 +196,54 @@
 
       <button class="btn btn-secondery">Tweet</button>
     </header>
+    <div class="log-out">
+      <div v-if="visible" class="button-container">
+        <button>Add an existing account</button>
+        <button>Log out @dev_mahmudul</button>
+      </div>
+
+      <div class="flex details" @click="toggle">
+        <img src="../assets/images/twitter-profile.webp" alt="" />
+
+        <div>
+          <span class="name">Mahmudul islam</span>
+          <br />
+          <span class="email">mahmudul@gmail.com</span>
+        </div>
+        <svg
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+          width="15"
+          height="15"
+          class="r-4qtqp9 r-yyyyoo r-1xvli5t r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-1hdv0qi postion-t"
+        >
+          <g>
+            <path
+              d="M3 12c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2zm9 2c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm7 0c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"
+            ></path>
+          </g>
+        </svg>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      visible: false,
+    };
+  },
+  methods: {
+    toggle() {
+      this.visible = !this.visible;
+    },
+  },
+};
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .header {
   ul li {
     list-style: none;
@@ -296,6 +336,70 @@ export default {};
 
     .home {
       font-weight: 800;
+    }
+  }
+}
+.log-out {
+  position: absolute;
+  bottom: 0;
+  .button-container {
+    background: white;
+    box-shadow: 0 0 5px #ccc;
+    padding: 0.7rem 0;
+    margin-bottom: 15px;
+    button {
+      text-align: left;
+      border: none;
+      outline: none;
+      width: 100%;
+      padding: 0.5rem;
+      display: block;
+      background: transparent;
+      font-family: TwitterChirp, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, Helvetica, Arial, sans-serif;
+      font-weight: 600;
+      font-size: 15px;
+      color: #0f1419;
+      &:hover {
+        background: #eff1f1;
+      }
+    }
+  }
+
+  .details {
+    padding: 0.8rem;
+    border-radius: 35px;
+    position: relative;
+    .position-t {
+      position: absolute;
+    }
+    &:hover {
+      background: #e7e7e8;
+    }
+  }
+  .flex {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    .name {
+      font-family: TwitterChirp, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, Helvetica, Arial, sans-serif;
+      font-weight: 600;
+      font-size: 15px;
+      color: #0f1419;
+    }
+    .email {
+      font-family: TwitterChirp, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, Helvetica, Arial, sans-serif;
+      font-weight: 400;
+      font-size: 15px;
+      color: #536471;
+    }
+    img {
+      width: 45px;
+      height: 45px;
+      border-radius: 50px;
+      gap: 0.5rem;
     }
   }
 }
