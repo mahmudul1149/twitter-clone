@@ -1,6 +1,6 @@
 <template>
   <div>
-    <header class="left-sidebar">
+    <header class="header">
       <ul>
         <li>
           <nuxt-link to="/">
@@ -203,8 +203,8 @@
 export default {};
 </script>
 
-<style lang="scss" scoped>
-.left-sidebar {
+<style lang="scss">
+.header {
   ul li {
     list-style: none;
   }

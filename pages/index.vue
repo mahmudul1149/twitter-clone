@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div>
     <div class="dark-bg">
       <div class="signup-section">
         <h2>Create your account</h2>
