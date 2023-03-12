@@ -215,7 +215,7 @@
           aria-hidden="true"
           width="15"
           height="15"
-          class="r-4qtqp9 r-yyyyoo r-1xvli5t r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-1hdv0qi postion-t"
+          class="r-4qtqp9 r-yyyyoo r-1xvli5t r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-1hdv0qi postion-t dot-icon"
         >
           <g>
             <path
@@ -415,6 +415,24 @@ export default {
       border-radius: 50px;
       gap: 0.5rem;
     }
+  }
+}
+@media screen and (max-width: 1300px) {
+  .header span {
+    display: none;
+  }
+  .btn-secondery {
+    display: none;
+  }
+  .name,
+  .email {
+    display: none;
+  }
+  .dot-icon {
+    display: none;
+  }
+  .details {
+    display: none;
   }
 }
 </style>

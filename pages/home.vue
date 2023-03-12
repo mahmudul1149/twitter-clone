@@ -47,4 +47,9 @@ export default {
   grid-template-columns: 270px auto 300px;
   gap: 1rem;
 }
+@media screen and (max-width: 1200px) {
+  .right-sidebar {
+    display: none;
+  }
+}
 </style>
