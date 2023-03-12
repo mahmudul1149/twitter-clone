@@ -76,6 +76,12 @@
             Already resistered? <a href="/signin">Login</a>
           </p>
         </form>
+        <div v-if="isLoading" class="loading">
+          <img
+            src="https://media.tenor.com/On7kvXhzml4AAAAj/loading-gif.gif"
+            alt=""
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -86,6 +92,7 @@ import { register } from "../plugins/firebase";
 export default {
   data() {
     return {
+      isLoading: false,
       user: {
         username: " ",
         email: "",
@@ -116,20 +123,18 @@ export default {
   },
   methods: {
     registerUser() {
-      // this.isLoading = true;
+      this.isLoading = true;
       register(this.user.username, this.user.email, this.user.password)
         .then((user) => {
-          // commit the mutation
           this.$store.commit("setUser", user);
         })
         .then(() => {
-          // Go to the home page after loggin in.
           this.$router.push("/home");
         })
         .catch((err) => {
           alert("error");
           this.$router.push("/");
-          // this.isLoading = false;
+          this.isLoading = false;
         });
     },
   },
@@ -151,6 +156,22 @@ export default {
   background: #fff;
   padding: 40px;
   border-radius: 10px;
+  position: relative;
+  .loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.3);
+    img {
+      width: 2rem;
+      height: 2rem;
+    }
+  }
   .resisterd {
     font-family: TwitterChirp, -apple-system, BlinkMacSystemFont, "Segoe UI",
       Roboto, Helvetica, Arial, sans-serif;

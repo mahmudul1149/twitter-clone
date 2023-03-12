@@ -2,12 +2,13 @@
   <div>
     <div class="dark-bg">
       <div class="signin-section">
-        <form>
+        <form @submit.prevent="loginUser">
           <label for="#">Email:</label>
           <input
             type="email"
             id="email"
             name="email"
+            v-model="user.email"
             placeholder="Email"
             required
           />
@@ -16,29 +17,62 @@
             type="password"
             id="password"
             name=""
+            v-model="user.password"
             required
             placeholder="Password"
           />
 
           <input type="submit" value="Log in" />
-          <p class="forgot-pass">Forgotten Password</p>
-          <div class="text-center">
-            <button class="create">
-              <nuxt-link to="/" class="create-btn">
-                Create New Account
-              </nuxt-link>
-            </button>
-          </div>
         </form>
+        <p class="forgot-pass">Forgotten Password</p>
+        <div class="text-center">
+          <button class="create">
+            <nuxt-link to="/" class="create-btn">
+              Create New Account
+            </nuxt-link>
+          </button>
+        </div>
+        <div v-if="isLoading" class="loading">
+          <img
+            src="https://media.tenor.com/On7kvXhzml4AAAAj/loading-gif.gif"
+            alt=""
+          />
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { login } from "../plugins/firebase";
 export default {
   data() {
-    return {};
+    return {
+      user: {
+        username: "",
+        email: "",
+        password: "",
+      },
+      isLoading: false,
+    };
+  },
+  methods: {
+    loginUser() {
+      this.isLoading = true;
+      localStorage.setItem("userDetails", JSON.stringify(this.user));
+      this.isLoading = true;
+      login(this.user.email, this.user.password)
+        .then((user) => {
+          this.$store.commit("setUser", user);
+        })
+        .then(() => {
+          this.$router.push("/home");
+        })
+        .catch((err) => {
+          this.$router.push("/signin");
+          this.isLoading = false;
+        });
+    },
   },
 };
 </script>
@@ -49,6 +83,7 @@ export default {
   height: 100vh;
   background-color: rgb(131, 127, 127);
 }
+
 .text-center {
   text-align: center;
 }
@@ -61,6 +96,23 @@ export default {
   background: #fff;
   padding: 40px;
   border-radius: 10px;
+  position: relative;
+  .loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.3);
+    img {
+      width: 2rem;
+      height: 2rem;
+    }
+  }
+
   .create {
     margin-top: 1rem;
     border: none;

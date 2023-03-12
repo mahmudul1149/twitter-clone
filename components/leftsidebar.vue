@@ -199,16 +199,16 @@
     <div class="log-out">
       <div v-if="visible" class="button-container">
         <button>Add an existing account</button>
-        <button>Log out @dev_mahmudul</button>
+        <button @click="logout">Log out {{ user.displayName }}</button>
       </div>
 
       <div class="flex details" @click="toggle">
         <img src="../assets/images/twitter-profile.webp" alt="" />
 
         <div>
-          <span class="name">Mahmudul islam</span>
+          <span class="name">{{ user.displayName }}</span>
           <br />
-          <span class="email">mahmudul@gmail.com</span>
+          <span class="email">{{ user.email }}</span>
         </div>
         <svg
           viewBox="0 0 24 24"
@@ -229,15 +229,28 @@
 </template>
 
 <script>
+import { logout } from "../plugins/firebase";
+
 export default {
   data() {
     return {
       visible: false,
     };
   },
+  computed: {
+    user() {
+      return this.$store.state.user;
+    },
+  },
   methods: {
     toggle() {
       this.visible = !this.visible;
+    },
+    logout() {
+      logout().then(() => {
+        this.$store.commit("setUser", null);
+        this.$router.push("/");
+      });
     },
   },
 };
@@ -348,6 +361,7 @@ export default {
     padding: 0.7rem 0;
     margin-bottom: 15px;
     button {
+      cursor: pointer;
       text-align: left;
       border: none;
       outline: none;
