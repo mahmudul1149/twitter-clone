@@ -1,5 +1,13 @@
-# twitter-clone
+# Twitter Clone
+Completed a Twitter clone project using HTML, CSS, Vue.js, and Nuxt.js. Implemented responsive UI, login/logout with Google Firebase, and used CSS3 grid, flexbox, transform, and BEM. Emphasized social aspect and unique features.
+## Demo
+Live version of this site: https://facebook-clone001.netlify.app/
 
+
+## Tech Stack
+HTML, CSS, Sass, JavaScript, Vue.js & Nuxt.js, Google firebase
+
+Deployed In: Netlify
 ## Build Setup
 
 ```bash
