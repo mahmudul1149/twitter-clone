@@ -11,10 +11,7 @@
       </div>
     </div>
     <div class="post-container">
-      <div class="image" v-if="user.image">
-        <img :src="user.image" alt="" />
-      </div>
-      <div v-else class="image">
+      <div class="image">
         <img src="../assets/images/twitter-profile.webp" alt="" />
       </div>
       <div class="input">
@@ -123,10 +120,7 @@
       <div class="show-profile" v-for="item in userItems" :key="item">
         <div>
           <div class="box image">
-            <div v-if="user.image">
-              <img :src="user.image" alt="" />
-            </div>
-            <div v-else class="">
+            <div>
               <img
                 class="profile-photo"
                 src="../assets/images/twitter-profile.webp"
@@ -135,7 +129,7 @@
             </div>
 
             <div class="mt-1">
-              <a>{{ user.displayName }}</a>
+              <a>{{ username }}</a>
             </div>
           </div>
 
@@ -594,6 +588,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   data() {
     return {
@@ -609,13 +604,12 @@ export default {
     };
   },
   computed: {
-    user() {
-      return this.$store.state.user;
+    ...mapState(["user"]),
+    username() {
+      return this.user ? this.user.displayName : "";
     },
   },
-  mounted() {
-    this.$store.commit("initializeStore");
-  },
+
   methods: {
     addItem() {
       console.log(this.text);

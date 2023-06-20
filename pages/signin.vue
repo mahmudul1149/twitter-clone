@@ -3,6 +3,11 @@
     <div class="dark-bg">
       <div class="signin-section">
         <form @submit.prevent="loginUser">
+          <div v-if="error">
+            <p class="error mb-1">
+              {{ error }}
+            </p>
+          </div>
           <label for="#">Email:</label>
           <input
             type="email"
@@ -32,46 +37,34 @@
             </nuxt-link>
           </button>
         </div>
-        <div v-if="isLoading" class="loading">
-          <img
-            src="https://media.tenor.com/On7kvXhzml4AAAAj/loading-gif.gif"
-            alt=""
-          />
-        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { login } from "../plugins/firebase";
 export default {
   data() {
     return {
       user: {
-        username: "",
         email: "",
         password: "",
       },
-      isLoading: false,
+      error: "",
     };
   },
   methods: {
-    loginUser() {
-      this.isLoading = true;
-      localStorage.setItem("userDetails", JSON.stringify(this.user));
-      this.isLoading = true;
-      login(this.user.email, this.user.password)
-        .then((user) => {
-          this.$store.commit("setUser", user);
-        })
-        .then(() => {
-          this.$router.push("/home");
-        })
-        .catch((err) => {
-          this.$router.push("/signin");
-          this.isLoading = false;
+    async loginUser() {
+      try {
+        this.isLoading = true;
+        await this.$store.dispatch("login", {
+          email: this.user.email,
+          password: this.user.password,
         });
+        this.$router.push("/home");
+      } catch (error) {
+        this.error = "Failed to login!";
+      }
     },
   },
 };
@@ -86,6 +79,9 @@ export default {
 
 .text-center {
   text-align: center;
+}
+.mb-1 {
+  margin-bottom: 1rem;
 }
 .signin-section {
   width: 550px;

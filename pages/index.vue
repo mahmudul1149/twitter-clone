@@ -2,6 +2,9 @@
   <div>
     <div class="dark-bg">
       <div class="signup-section">
+        <div v-if="error">
+          <p class="error">{{ error }}</p>
+        </div>
         <h2>Create your account</h2>
         <form @submit.prevent="registerUser">
           <label for="name">Name:</label>
@@ -76,19 +79,12 @@
             Already resistered? <a href="/signin">Login</a>
           </p>
         </form>
-        <div v-if="isLoading" class="loading">
-          <img
-            src="https://media.tenor.com/On7kvXhzml4AAAAj/loading-gif.gif"
-            alt=""
-          />
-        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { register } from "../plugins/firebase";
 export default {
   data() {
     return {
@@ -114,6 +110,7 @@ export default {
       ],
       years: [],
       days: [],
+      error: "",
     };
   },
   mounted() {
@@ -122,20 +119,18 @@ export default {
     this.years = Array.from({ length: 54 }, (_, i) => 1970 + i);
   },
   methods: {
-    registerUser() {
-      this.isLoading = true;
-      register(this.user.username, this.user.email, this.user.password)
-        .then((user) => {
-          this.$store.commit("setUser", user);
-        })
-        .then(() => {
-          this.$router.push("/home");
-        })
-        .catch((err) => {
-          alert("error");
-          this.$router.push("/");
-          this.isLoading = false;
+    async registerUser() {
+      try {
+        await this.$store.dispatch("signup", {
+          email: this.user.email,
+          password: this.user.password,
+          userName: this.user.username,
         });
+        this.$router.push("/home");
+      } catch (error) {
+        this.error = "Something went wrong to create account";
+      } finally {
+      }
     },
   },
 };

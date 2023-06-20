@@ -10,40 +10,12 @@ const firebaseConfig = {
   measurementId: "G-SPY0QTLZVQ",
 };
 firebase.initializeApp(firebaseConfig);
-export async function register(username, email, password) {
-  try {
-    const response = await firebase
-      .auth()
-      .createUserWithEmailAndPassword(email, password);
-
-    await response.user.updateProfile({
-      displayName: username,
-      email: email,
-    });
-
-    return response.user;
-  } catch (error) {
-    this.$router.push("/");
-  }
-}
-
-export async function login(username, email, password) {
-  try {
-    const response = await firebase
-      .auth()
-      .signInWithEmailAndPassword(username, email, password);
-
-    await response.user.updateProfile({
-      displayName: username,
-      email: email,
-    });
-    return response.user;
-  } catch (error) {
-    alert(error);
-    this.$router.push("/");
-  }
-}
-
-export async function logout() {
-  await firebase.auth().signOut();
+export default function ({ store }) {
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      store.commit("SET_USER", user);
+    } else {
+      store.commit("SET_USER", null);
+    }
+  });
 }

@@ -229,8 +229,6 @@
 </template>
 
 <script>
-import { logout } from "../plugins/firebase";
-
 export default {
   data() {
     return {
@@ -239,7 +237,7 @@ export default {
   },
   computed: {
     user() {
-      return this.$store.state.user;
+      return this.$store.state.user || {};
     },
   },
   methods: {
@@ -247,10 +245,12 @@ export default {
       this.visible = !this.visible;
     },
     logout() {
-      logout().then(() => {
-        this.$store.commit("setUser", null);
+      try {
+        this.$store.dispatch("logout");
         this.$router.push("/");
-      });
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
 };
