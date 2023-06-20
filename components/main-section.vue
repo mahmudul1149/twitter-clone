@@ -117,7 +117,7 @@
     </div>
     <div class="show-tweet">Show 25 Tweets</div>
     <div class="show-post">
-      <div class="show-profile" v-for="item in userItems" :key="item">
+      <div class="show-profile" v-for="post in posts" :key="post">
         <div>
           <div class="box image">
             <div>
@@ -129,12 +129,12 @@
             </div>
 
             <div class="mt-1">
-              <a>{{ username }}</a>
+              <a>{{ post.username }}</a>
             </div>
           </div>
 
           <div class="custom-pad">
-            <p class="posting-title">{{ item.post }}</p>
+            <p class="posting-title">{{ post.post }}</p>
 
             <div class="react">
               <span
@@ -588,32 +588,27 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
 export default {
   data() {
     return {
       text: "",
       visible: false,
-      userItems: [
-        {
-          title: "",
-          post: " ",
-          completed: true,
-        },
-      ],
+      posts: [],
     };
   },
   computed: {
-    ...mapState(["user"]),
     username() {
-      return this.user ? this.user.displayName : "";
+      return this.$store.state.user.displayName;
     },
   },
 
   methods: {
     addItem() {
       console.log(this.text);
-      this.userItems.unshift({ post: this.text });
+      this.posts.unshift({
+        post: this.text,
+        username: this.username,
+      });
       this.visible = true;
       this.text = "";
     },
