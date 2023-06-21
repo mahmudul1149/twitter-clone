@@ -601,14 +601,26 @@ export default {
       return this.$store.state.user.displayName;
     },
   },
+  mounted() {
+    const storedPosts = localStorage.getItem("posts");
+    if (storedPosts) {
+      this.posts = JSON.parse(storedPosts);
+    }
+  },
 
   methods: {
     addItem() {
-      console.log(this.text);
+      let existingPosts = localStorage.getItem("posts");
+      if (existingPosts) {
+        this.posts = JSON.parse(existingPosts);
+      } else {
+        this.posts = [];
+      }
       this.posts.unshift({
         post: this.text,
         username: this.username,
       });
+      localStorage.setItem("posts", JSON.stringify(this.posts));
       this.visible = true;
       this.text = "";
     },
@@ -662,9 +674,11 @@ export default {
     padding: 0.5rem;
     gap: 0.5rem;
     .input input {
-      font-size: 1.5rem;
+      width: 100% !important;
+      font-size: 1.1rem;
       border: none;
       outline: none;
+      color: #6d6767;
     }
     .image {
       img {
@@ -696,7 +710,9 @@ export default {
         cursor: pointer;
         border-radius: 35px;
         font-size: 1.2rem;
-        font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+          sans-serif;
       }
     }
   }
