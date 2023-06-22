@@ -244,9 +244,9 @@ export default {
     toggle() {
       this.visible = !this.visible;
     },
-    logout() {
+    async logout() {
       try {
-        this.$store.dispatch("logout");
+        await this.$store.dispatch("logout");
         this.$router.push("/");
       } catch (error) {
         console.log(error);

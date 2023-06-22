@@ -6,6 +6,14 @@
           <p class="error">{{ error }}</p>
         </div>
         <h2>Create your account</h2>
+        <button class="google-login" @click.prevent="signupWithGoogle">
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/1200px-Google_%22G%22_Logo.svg.png"
+            alt="Google Icon"
+          />
+          <span>Sign Up with Google</span>
+        </button>
+        <div class="text-center"><p class="or my-1">OR</p></div>
         <form @submit.prevent="registerUser">
           <label for="name">Name:</label>
           <input
@@ -32,13 +40,6 @@
             v-model="user.password"
             required
             placeholder="Password"
-          />
-          <input
-            type="password"
-            id="password"
-            name=""
-            required
-            placeholder="Confirm password"
           />
           <div class="birth-date">
             <h3>Date of birth</h3>
@@ -85,6 +86,8 @@
 </template>
 
 <script>
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
 export default {
   data() {
     return {
@@ -128,8 +131,19 @@ export default {
         });
         this.$router.push("/home");
       } catch (error) {
+        this.error = error.message;
         this.error = "Something went wrong to create account";
       } finally {
+      }
+    },
+    async signupWithGoogle() {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      try {
+        await firebase.auth().signInWithPopup(provider);
+
+        this.$router.push({ name: "home" });
+      } catch (error) {
+        console.log(error);
       }
     },
   },
@@ -142,8 +156,9 @@ export default {
   height: 100vh;
   background-color: rgb(131, 127, 127);
 }
+
 .signup-section {
-  width: 550px;
+  width: 470px;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -152,6 +167,12 @@ export default {
   padding: 40px;
   border-radius: 10px;
   position: relative;
+  .or {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.1rem;
+    font-weight: 800;
+    margin: 0.5rem 0;
+  }
   .loading {
     position: absolute;
     top: 0;
@@ -208,12 +229,11 @@ export default {
     }
   }
   h2 {
-    margin-top: 0;
-    font-size: 28px;
-    font-weight: 600;
-    margin-bottom: 10px;
-    font-family: TwitterChirp, -apple-system, BlinkMacSystemFont, "Segoe UI",
-      Roboto, Helvetica, Arial, sans-serif;
+    margin-bottom: 0.7rem;
+    font-size: 2rem;
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+      sans-serif;
+    opacity: 0.8;
   }
 
   form {
@@ -233,16 +253,16 @@ export default {
   form input[type="password"],
   form select {
     width: 100%;
-    padding: 15px;
+    padding: 12px;
     border: 1px solid #ccc;
     outline-color: #1d9bf0;
     border-radius: 5px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     font-size: 16px;
   }
 
   form input[type="submit"] {
-    background-color: #2ecc71;
+    background-color: #000000;
     color: #fff;
     padding: 10px 20px;
     border: none;
@@ -255,6 +275,34 @@ export default {
 
   form input[type="submit"]:hover {
     background-color: #27ae60;
+  }
+  .google-login {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 35px;
+    background-color: white;
+    color: black;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+  }
+
+  .google-login img {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+  }
+
+  .google-login span {
+    font-size: 1rem;
+    display: inline-block;
+    font-family: "Courier New", Courier, monospace;
+    font-weight: 800;
   }
 }
 </style>
